@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Precios de Servicios</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+/* 
+        .ID {
+            display: none;
+        } */
+    </style>
+</head>
+<body>
+    <h1>Precios de Servicios</h1>
+
+    <h2>Impresiones</h2>
+    <table id="impresiones-table">
+        <thead>
+            <tr>
+                <th class="ID">ID</th>
+                <th>Material</th>
+                <th>A Color</th>
+                <th>Blanco y Negro</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se insertarán aquí dinámicamente -->
+        </tbody>
+    </table>
+
+    <h2>Fotocopias</h2>
+    <table id="fotocopias-table">
+        <thead>
+            <tr>
+                <th class="ID">ID</th>
+                <th>Material</th>
+                <th>A Color</th>
+                <th>Blanco y Negro</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Los datos se insertarán aquí dinámicamente -->
+        </tbody>
+    </table>
+
+    <script>
+        // Obtener los datos del archivo PHP
+        fetch('getData.php')
+            .then(response => response.json())
+            .then(data => {
+                // Llenar la tabla de Impresiones
+                const impresionesTable = document.getElementById('impresiones-table').querySelector('tbody');
+                data.impresiones.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.id}</td>
+                        <td>${row.material}</td>
+                        <td>${row.A_color}</td>
+                        <td>${row.Blanco_y_Negro}</td>
+                    `;
+                    impresionesTable.appendChild(tr);
+                });
+
+                // Llenar la tabla de Fotocopias
+                const fotocopiasTable = document.getElementById('fotocopias-table').querySelector('tbody');
+                data.fotocopias.forEach(row => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${row.id}</td>
+                        <td>${row.material}</td>
+                        <td>${row.A_color}</td>
+                        <td>${row.Blanco_y_Negro}</td>
+                    `;
+                    fotocopiasTable.appendChild(tr);
+                });
+            })
+    </script>
+</body>
+</html>
